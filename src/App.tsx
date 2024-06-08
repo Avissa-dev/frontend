@@ -1,10 +1,11 @@
-import { AiFillChrome } from 'react-icons/ai'
+import { Input } from './components/Input'
+import { FaRegCircleDot, FaLocationDot } from 'react-icons/fa6'
 
 function App() {
   return (
     <div>
-      <h1 className="text-red-500 font-bold">Hello World</h1>
-      <AiFillChrome />
+      <Input text={'Desde'} Icon={FaRegCircleDot} />
+      <Input text={'Hasta'} Icon={FaLocationDot} />
     </div>
   )
 }
