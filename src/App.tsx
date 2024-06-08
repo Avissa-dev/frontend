@@ -1,3 +1,4 @@
+import { Button } from './components/Button'
 import { Input } from './components/Input'
 import { FaRegCircleDot, FaLocationDot } from 'react-icons/fa6'
 
@@ -12,6 +13,7 @@ function App() {
         DESTINO
       </h3>
       <Input text={'Hasta'} Icon={FaLocationDot} />
+      <Button />
     </div>
   )
 }
