@@ -1,10 +1,9 @@
-import { AiFillChrome } from 'react-icons/ai'
+import { Sidebar } from './components/Sidebar'
 
 function App() {
   return (
     <div>
-      <h1 className="text-red-500 font-bold">Hello World</h1>
-      <AiFillChrome />
+      <Sidebar />
     </div>
   )
 }
