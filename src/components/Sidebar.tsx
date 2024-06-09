@@ -1,6 +1,8 @@
-import { FaLocationDot, FaRegCircleDot } from 'react-icons/fa6'
+import { FaBus, FaLocationDot, FaRegCircleDot } from 'react-icons/fa6'
 import { Button } from './Button'
 import { Input } from './Input'
+import { Tag } from './Tag'
+import { LiaWalkingSolid } from 'react-icons/lia'
 
 export const Sidebar = () => {
   return (
@@ -19,6 +21,8 @@ export const Sidebar = () => {
       <div className="self-center mt-6">
         <Button />
       </div>
+      <Tag Icon={FaBus} Text={'M-131'} />
+      <Tag Color={'bg-blue-500'} Icon={LiaWalkingSolid} />
     </div>
   )
 }
