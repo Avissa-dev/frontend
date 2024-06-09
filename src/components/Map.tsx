@@ -4,15 +4,16 @@ export const Map = () => {
   const position: [number, number] = [13.7036, -89.224]
 
   return (
-    <MapContainer
+       <MapContainer
       center={position}
       zoom={13}
-      style={{ height: '100vh', width: '100%' }}
+      className='h-screen w-full'
     >
-      <TileLayer
-        url={'https://tile.openstreetmap.org/{z}/{x}/{y}.png'}
-        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      />
-    </MapContainer>
+       <TileLayer
+                    url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                    maxZoom={20}
+                    subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+                />
+    </MapContainer> 
   )
 }
