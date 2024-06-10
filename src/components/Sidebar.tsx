@@ -5,15 +5,15 @@ import { ResultCard } from './ResultCard'
 
 export const Sidebar = () => {
   return (
-    <div className="w-1/4 h-screen p-4 flex flex-col">
-      <h1 className="font-montserrat font-black text-xl text-center mt-4">
+    <div className="w-2/6 h-screen p-4 flex flex-col">
+      <h1 className="font-montserrat font-black text-2xl text-center mt-4">
         Ubícate con Avissa
       </h1>
-      <h3 className="font-montserrat font-bold text-xs mt-5 mb-1 tracking-widest">
+      <h3 className="font-montserrat font-bold text-sm mt-5 mb-1 tracking-widest">
         ORIGEN
       </h3>
       <Input text={'Desde'} Icon={FaRegCircleDot} />
-      <h3 className=" font-montserrat font-bold text-xs mt-5 mb-1 tracking-widest">
+      <h3 className=" font-montserrat font-bold text-sm mt-5 mb-1 tracking-widest">
         DESTINO
       </h3>
       <Input text={'Hasta'} Icon={FaLocationDot} />
