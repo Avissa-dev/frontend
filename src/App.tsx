@@ -23,6 +23,15 @@ function App() {
     }
   }
 
+  const handleMapDoubleClick = (location: [number, number]) => {
+    const [lat, lng] = location
+    if (focusedInput === 'origin' && originRef.current) {
+      originRef.current.value = `${lat}, ${lng}`
+    } else if (focusedInput === 'destination' && destinationRef.current) {
+      destinationRef.current.value = `${lat}, ${lng}`
+    }
+  }
+
   return (
     <div className="flex h-screen">
       <Sidebar
@@ -30,7 +39,11 @@ function App() {
         originRef={originRef}
         destinationRef={destinationRef}
       />
-      <Map setLocation={handleSetLocation} location={location} />
+      <Map
+        setLocation={handleSetLocation}
+        location={location}
+        onMapDoubleClick={handleMapDoubleClick}
+      />
     </div>
   )
 }
