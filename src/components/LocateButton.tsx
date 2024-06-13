@@ -2,9 +2,9 @@ import { FaLocationArrow } from 'react-icons/fa6'
 import { useMap } from 'react-leaflet'
 
 interface LocateButtonProps {
-  setLocation: (location: [number, number]) => void
+  setOrigin: (location: [number, number]) => void
 }
-export const LocateButton = ({ setLocation }: LocateButtonProps) => {
+export const LocateButton = ({ setOrigin }: LocateButtonProps) => {
   const map = useMap()
 
   const handleLocate = () => {
@@ -13,7 +13,7 @@ export const LocateButton = ({ setLocation }: LocateButtonProps) => {
         position => {
           const { latitude, longitude } = position.coords
           map.flyTo([latitude, longitude], 18)
-          setLocation([latitude, longitude])
+          setOrigin([latitude, longitude])
         },
         error => {
           console.error('Error getting location: ', error)

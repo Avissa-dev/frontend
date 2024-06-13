@@ -41,7 +41,13 @@ function App() {
         destinationRef={destinationRef}
       />
       <Map
-        setOrigin={setOrigin}
+        setOrigin={(location) => {
+          setOrigin(location);
+          if (originRef.current) {
+            const [lat, lng] = location;
+            originRef.current.value = `${lat}, ${lng}`;
+          }
+        }}
         setDestination={setDestination}
         origin={origin}
         destination={destination}
