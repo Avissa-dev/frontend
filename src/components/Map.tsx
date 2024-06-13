@@ -1,14 +1,16 @@
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
-import { LocateButton } from './LocateButton'
 import L from 'leaflet'
+import { LocateButton } from './LocateButton'
 
 interface MapProps {
-  setLocation: (location: [number, number]) => void
-  location: [number, number] | null
+  setOrigin: (location: [number, number]) => void
+  setDestination: (location: [number, number]) => void
+  origin: [number, number] | null
+  destination: [number, number] | null
   onMapDoubleClick: (location: [number, number]) => void
 }
 
-export const Map = ({ setLocation, location, onMapDoubleClick }: MapProps) => {
+export const Map = ({ setOrigin, origin, destination, onMapDoubleClick }: MapProps) => {
   const position: [number, number] = [13.7036, -89.224]
 
   const defaultIcon = new L.Icon({
@@ -37,9 +39,10 @@ export const Map = ({ setLocation, location, onMapDoubleClick }: MapProps) => {
         maxZoom={20}
         subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
       />
-      <LocateButton setLocation={setLocation} />
       <MapDoubleClickHandler />
-      {location && <Marker position={location} icon={defaultIcon} />}
+      <LocateButton setOrigin={setOrigin} />
+      {origin && <Marker position={origin} icon={defaultIcon} />}
+      {destination && <Marker position={destination} icon={defaultIcon} />}
     </MapContainer>
   )
 }
