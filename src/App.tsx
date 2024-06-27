@@ -2,10 +2,12 @@ import { Sidebar } from './components/Sidebar'
 import { Map } from './components/Map'
 import 'leaflet/dist/leaflet.css'
 import { useRef, useState } from 'react'
+import getRoute from './api/axios'
 
 function App() {
   const [origin, setOrigin] = useState<[number, number] | null>(null)
   const [destination, setDestination] = useState<[number, number] | null>(null)
+  const [routeData, setRouteData] = useState(null)
   const [focusedInput, setFocusedInput] = useState<
     'origin' | 'destination' | null
   >(null)
@@ -24,6 +26,21 @@ function App() {
   //   }
   // }
 
+  const handleGetRoute = async () => {
+    if (origin && destination) {
+      try {
+        const data = await getRoute(origin, destination)
+        setRouteData(data)
+      } catch (error) {
+        console.error('Error fetching route:', error)
+      }
+    } else {
+      console.warn('Both origin and destination must be set')
+    }
+  }
+
+  console.log('Route data:', routeData)
+
   const handleMapDoubleClick = (location: [number, number]) => {
     const [lat, lng] = location
     if (focusedInput === 'origin' && originRef.current) {
@@ -41,6 +58,7 @@ function App() {
         setFocusedInput={setFocusedInput}
         originRef={originRef}
         destinationRef={destinationRef}
+        onGetRoute={handleGetRoute}
       />
       <Map
         setOrigin={location => {

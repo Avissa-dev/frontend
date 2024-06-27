@@ -8,12 +8,14 @@ interface SidebarProps {
   setFocusedInput: (input: 'origin' | 'destination') => void
   originRef: RefObject<HTMLInputElement>
   destinationRef: RefObject<HTMLInputElement>
+  onGetRoute: () => void // Add this prop
 }
 
 export const Sidebar = ({
   setFocusedInput,
   originRef,
-  destinationRef
+  destinationRef,
+  onGetRoute
 }: SidebarProps) => {
   return (
     <div className="w-2/6 h-screen p-4 flex flex-col">
@@ -39,7 +41,7 @@ export const Sidebar = ({
         onFocus={() => setFocusedInput('destination')}
       />
       <div className="self-center mt-6">
-        <Button />
+        <Button onClick={onGetRoute} />
       </div>
       <h3 className=" font-montserrat font-bold text-sm mt-5 mb-1 tracking-widest">
         RESULTADOS
