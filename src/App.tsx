@@ -3,6 +3,8 @@ import { Map } from './components/Map'
 import 'leaflet/dist/leaflet.css'
 import { useRef, useState } from 'react'
 import getRoute from './api/axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const [origin, setOrigin] = useState<[number, number] | null>(null)
@@ -35,6 +37,7 @@ function App() {
         console.error('Error fetching route:', error)
       }
     } else {
+      toast.error('Por favor, selecciona un origen y un destino')
       console.warn('Both origin and destination must be set')
     }
   }
@@ -54,6 +57,7 @@ function App() {
 
   return (
     <div className="flex h-screen">
+      <ToastContainer />
       <Sidebar
         setFocusedInput={setFocusedInput}
         originRef={originRef}
