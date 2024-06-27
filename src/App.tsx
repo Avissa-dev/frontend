@@ -3,7 +3,7 @@ import { Map } from './components/Map'
 import 'leaflet/dist/leaflet.css'
 import { useRef, useState } from 'react'
 import getRoute from './api/axios'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
@@ -37,6 +37,7 @@ function App() {
         console.error('Error fetching route:', error)
       }
     } else {
+      toast.error('Por favor, selecciona un origen y un destino')
       console.warn('Both origin and destination must be set')
     }
   }
