@@ -3,6 +3,8 @@ import { Map } from './components/Map'
 import 'leaflet/dist/leaflet.css'
 import { useRef, useState } from 'react'
 import getRoute from './api/axios'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const [origin, setOrigin] = useState<[number, number] | null>(null)
@@ -54,6 +56,7 @@ function App() {
 
   return (
     <div className="flex h-screen">
+      <ToastContainer />
       <Sidebar
         setFocusedInput={setFocusedInput}
         originRef={originRef}

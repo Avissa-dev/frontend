@@ -1,5 +1,6 @@
 // src/api/getRoute.ts
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const getRoute = async (
   origin: [number, number],
@@ -19,6 +20,14 @@ const getRoute = async (
     console.log('point_1:', params.point_1)
     console.log('point_2:', params.point_2)
     const response = await axios.get(url, { params })
+
+    // if the response.data is an empty object, throw an toast
+    if (Object.keys(response.data).length === 0) {
+      toast.error(
+        'No se encontró una ruta para los puntos seleccionados. Por favor, intenta con otros puntos.'
+      )
+    }
+
     return response.data
   } catch (error) {
     console.error('Error fetching route:', error)
