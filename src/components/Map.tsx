@@ -8,6 +8,7 @@ interface MapProps {
   origin: [number, number] | null
   destination: [number, number] | null
   onMapDoubleClick: (location: [number, number]) => void
+  
 }
 
 export const Map = ({ setOrigin, origin, destination, onMapDoubleClick }: MapProps) => {

@@ -1,21 +1,24 @@
+// Sidebar.tsx
 import { FaLocationDot, FaRegCircleDot } from 'react-icons/fa6'
 import { Button } from './Button'
 import { Input } from './Input'
-import { ResultCard } from './ResultCard'
+import { ResultCard, Properties } from './ResultCard' // Importa la interfaz correctamente
 import { RefObject } from 'react'
 
 interface SidebarProps {
   setFocusedInput: (input: 'origin' | 'destination') => void
   originRef: RefObject<HTMLInputElement>
   destinationRef: RefObject<HTMLInputElement>
-  onGetRoute: () => void // Add this prop
+  onGetRoute: () => void
+  data: Properties[]
 }
 
 export const Sidebar = ({
   setFocusedInput,
   originRef,
   destinationRef,
-  onGetRoute
+  onGetRoute,
+  data
 }: SidebarProps) => {
   return (
     <div className="w-2/6 h-screen p-4 flex flex-col">
@@ -47,9 +50,13 @@ export const Sidebar = ({
         RESULTADOS
       </h3>
       <div className="mt-6">
-        <ResultCard />
-        <ResultCard />
-        <ResultCard />
+        {data.length > 0 ? (
+          data.map((properties, index) => (
+            <ResultCard key={index} properties={properties} />
+          ))
+        ) : (
+          <p>No hay resultados</p>
+        )}
       </div>
     </div>
   )
