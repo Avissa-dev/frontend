@@ -1,27 +1,27 @@
-import { Sidebar } from './components/Sidebar';
-import { Map } from './components/Map';
-import 'leaflet/dist/leaflet.css';
-import { useRef, useState } from 'react';
-import getRoute from './api/axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Properties, RouteData } from './components/ResultCard';
-import { Feature, MultiLineString } from 'geojson';
+import { Sidebar } from './components/Sidebar'
+import { Map } from './components/Map'
+import 'leaflet/dist/leaflet.css'
+import { useRef, useState, useEffect } from 'react'
+import getRoute from './api/axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Properties, RouteData } from './components/ResultCard'
+import { Feature, Geometry, LineString } from 'geojson'
 
 function App() {
-  const [origin, setOrigin] = useState<[number, number] | null>(null);
-  const [destination, setDestination] = useState<[number, number] | null>(null);
-  const [routeData, setRouteData] = useState<RouteData[]>([]);
-  const [focusedInput, setFocusedInput] = useState<'origin' | 'destination' | null>(null);
-  const [selectedRoute, setSelectedRoute] = useState<Feature<MultiLineString> | null>(null);
+  const [origin, setOrigin] = useState<[number, number] | null>(null)
+  const [destination, setDestination] = useState<[number, number] | null>(null)
+  const [routeData, setRouteData] = useState<RouteData[]>([])
+  const [focusedInput, setFocusedInput] = useState<'origin' | 'destination' | null>(null)
+  const [selectedRoutes, setSelectedRoutes] = useState<Feature<Geometry>[]>([])
 
-  const originRef = useRef<HTMLInputElement>(null);
-  const destinationRef = useRef<HTMLInputElement>(null);
+  const originRef = useRef<HTMLInputElement>(null)
+  const destinationRef = useRef<HTMLInputElement>(null)
 
   const handleGetRoute = async () => {
     if (origin && destination) {
       try {
-        const data = await getRoute(origin, destination);
+        const data = await getRoute(origin, destination)
         const formattedData: RouteData[] = data.map((item: any) => ({
           properties: {
             bus_number: item.properties.bus_number,
@@ -40,48 +40,57 @@ function App() {
             coordinates: item.geometry.coordinates,
           },
           coordinates: item.geometry.coordinates,
-        }));
-        setRouteData(formattedData);
-        console.log('Route data fetched and formatted:', formattedData);
+        }))
+        setRouteData(formattedData)
+        console.log('Route data fetched and formatted:', formattedData)
       } catch (error) {
-        console.error('Error fetching route:', error);
+        console.error('Error fetching route:', error)
       }
     } else {
-      toast.error('Por favor, selecciona un origen y un destino');
-      console.warn('Both origin and destination must be set');
+      toast.error('Por favor, selecciona un origen y un destino')
+      console.warn('Both origin and destination must be set')
     }
-  };
+  }
 
   const handleMapDoubleClick = (location: [number, number]) => {
-    const [lat, lng] = location;
+    const [lat, lng] = location
     if (focusedInput === 'origin' && originRef.current) {
-      setOrigin(location);
-      originRef.current.value = `${lng} ${lat}`;
+      setOrigin(location)
+      originRef.current.value = `${lng} ${lat}`
     } else if (focusedInput === 'destination' && destinationRef.current) {
-      setDestination(location);
-      destinationRef.current.value = `${lng} ${lat}`;
+      setDestination(location)
+      destinationRef.current.value = `${lng} ${lat}`
     }
+  }
+
+  const handleRouteSelect = (coordinates: [number, number][][] | [number, number][]) => {
+    setSelectedRoutes([]); // Clear the existing routes before adding new ones
+
+    const normalizedCoordinates = Array.isArray(coordinates[0][0]) ? coordinates : [coordinates];
+
+    const multiLineFeatures: Feature<Geometry>[] = normalizedCoordinates.map((line, index) => ({
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: line,
+      } as LineString,
+      properties: {
+        color: index % 2 === 0 ? 'blue' : 'red', // Alternar colores como ejemplo
+      },
+    }));
+    
+    setTimeout(() => {
+      setSelectedRoutes(multiLineFeatures);
+    }, 0); // Delay setting the routes to force a re-render
+    
+    console.log('Routes selected:', multiLineFeatures);
   };
 
-  const handleRouteSelect = (coordinates: [number, number][][]) => {
-    setSelectedRoute(null); // Clear selected route
-    setTimeout(() => { // Ensure state updates before setting new value
-      const validCoordinates = coordinates.filter(
-        (line) => Array.isArray(line) && line.every((coord) => Array.isArray(coord) && coord.length === 2 && typeof coord[0] === 'number' && typeof coord[1] === 'number')
-      );
-
-      const multiLineFeature: Feature<MultiLineString> = {
-        type: 'Feature',
-        geometry: {
-          type: 'MultiLineString',
-          coordinates: validCoordinates,
-        },
-        properties: {},
-      };
-      setSelectedRoute(multiLineFeature);
-      console.log('Routes selected:', multiLineFeature);
-    }, 0);
-  };
+  useEffect(() => {
+    if (selectedRoutes.length > 0) {
+      console.log('Selected routes changed:', selectedRoutes);
+    }
+  }, [selectedRoutes]);
 
   return (
     <div className="flex h-screen">
@@ -91,25 +100,25 @@ function App() {
         originRef={originRef}
         destinationRef={destinationRef}
         onGetRoute={handleGetRoute}
-        data={routeData.map((rd) => rd.properties)}
+        data={routeData.map(rd => rd.properties)}
         onRouteSelect={handleRouteSelect}
       />
       <Map
-        setOrigin={(location) => {
-          setOrigin(location);
+        setOrigin={location => {
+          setOrigin(location)
           if (originRef.current) {
-            const [lat, lng] = location;
-            originRef.current.value = `${lng} ${lat}`;
+            const [lat, lng] = location
+            originRef.current.value = `${lng} ${lat}`
           }
         }}
         setDestination={setDestination}
         origin={origin}
         destination={destination}
         onMapDoubleClick={handleMapDoubleClick}
-        selectedRoute={selectedRoute}
+        selectedRoutes={selectedRoutes}
       />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

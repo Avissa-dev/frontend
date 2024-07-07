@@ -103,4 +103,4 @@ export const ResultCard = ({ properties, onRouteSelect }: ResultCardProps) => {
         <p>No hay resultados</p>
       )
   }
-}
+};
