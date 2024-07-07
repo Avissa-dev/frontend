@@ -1,10 +1,11 @@
-// Sidebar.tsx
 import { FaLocationDot, FaRegCircleDot } from 'react-icons/fa6'
 import { Button } from './Button'
 import { Input } from './Input'
 import { ResultCard, Properties } from './ResultCard'
 import { RefObject } from 'react'
 import { useEffect } from 'react'
+import { PiBroomBold } from "react-icons/pi";
+import { PulseLoader } from 'react-spinners' // Importar el spinner
 
 interface SidebarProps {
   setFocusedInput: (input: 'origin' | 'destination') => void
@@ -13,6 +14,8 @@ interface SidebarProps {
   onGetRoute: () => void
   data: Properties[]
   onRouteSelect: (coordinates: [number, number][][]) => void // Consistente con App.tsx
+  loading: boolean // Añadir estado de carga
+  onClean: () => void // Añadir función de limpieza
 }
 
 export const Sidebar = ({
@@ -21,7 +24,9 @@ export const Sidebar = ({
   destinationRef,
   onGetRoute,
   data,
-  onRouteSelect
+  onRouteSelect,
+  loading,
+  onClean,
 }: SidebarProps) => {
   useEffect(() => {
     console.log('Sidebar data:', data)
@@ -50,19 +55,28 @@ export const Sidebar = ({
         inputRef={destinationRef}
         onFocus={() => setFocusedInput('destination')}
       />
-      <div className="self-center mt-6">
-        <Button onClick={onGetRoute} />
+      <div className="self-center mt-6 flex flex-row gap-2">
+        <Button onClick={onGetRoute} text='Calcular Ruta' color="bg-purple-400" />
+        {data.length > 0 && (
+          <Button onClick={onClean} text={<PiBroomBold />} color="bg-purple-400 text-xl font-bold" />
+        )}
       </div>
-      <h3 className=" font-montserrat font-bold text-sm mt-5 mb-1 tracking-widest">
+     
+      <h3 className="font-montserrat font-bold text-sm mt-5 mb-1 tracking-widest">
         RESULTADOS
       </h3>
+      {loading && (
+        <div className="self-center mt-4">
+          <PulseLoader color="#4A90E2" loading={loading} size={10} />
+        </div>
+      )}
       <div className="mt-6">
         {data.length > 0 ? (
           data.map((properties, index) => (
             <ResultCard key={index} properties={properties} onRouteSelect={onRouteSelect} />
           ))
         ) : (
-          <p>No hay resultados</p>
+          <p>Aún no hay resultados</p>
         )}
       </div>
     </div>

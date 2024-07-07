@@ -7,6 +7,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Properties, RouteData } from './components/ResultCard'
 import { Feature, Geometry, LineString } from 'geojson'
+import { ClipLoader } from 'react-spinners' // Importar el spinner
+
+const colors = ['#e580ff', '#000000', '#FFFFFF', '#F033FF', '#FF33F0']; // Colores alternativos para las rutas
 
 function App() {
   const [origin, setOrigin] = useState<[number, number] | null>(null)
@@ -14,12 +17,14 @@ function App() {
   const [routeData, setRouteData] = useState<RouteData[]>([])
   const [focusedInput, setFocusedInput] = useState<'origin' | 'destination' | null>(null)
   const [selectedRoutes, setSelectedRoutes] = useState<Feature<Geometry>[]>([])
+  const [loading, setLoading] = useState(false) // Estado de carga
 
   const originRef = useRef<HTMLInputElement>(null)
   const destinationRef = useRef<HTMLInputElement>(null)
 
   const handleGetRoute = async () => {
     if (origin && destination) {
+      setLoading(true) // Iniciar el spinner
       try {
         const data = await getRoute(origin, destination)
         const formattedData: RouteData[] = data.map((item: any) => ({
@@ -45,6 +50,8 @@ function App() {
         console.log('Route data fetched and formatted:', formattedData)
       } catch (error) {
         console.error('Error fetching route:', error)
+      } finally {
+        setLoading(false) // Detener el spinner
       }
     } else {
       toast.error('Por favor, selecciona un origen y un destino')
@@ -75,7 +82,7 @@ function App() {
         coordinates: line,
       } as LineString,
       properties: {
-        color: index % 2 === 0 ? 'blue' : 'red', // Alternar colores como ejemplo
+        color: colors[index % colors.length], // Alternar colores
       },
     }));
     
@@ -84,6 +91,15 @@ function App() {
     }, 0); // Delay setting the routes to force a re-render
     
     console.log('Routes selected:', multiLineFeatures);
+  };
+
+  const handleClean = () => {
+    setOrigin(null);
+    setDestination(null);
+    setRouteData([]);
+    setSelectedRoutes([]);
+    if (originRef.current) originRef.current.value = '';
+    if (destinationRef.current) destinationRef.current.value = '';
   };
 
   useEffect(() => {
@@ -100,8 +116,10 @@ function App() {
         originRef={originRef}
         destinationRef={destinationRef}
         onGetRoute={handleGetRoute}
+        onClean={handleClean}
         data={routeData.map(rd => rd.properties)}
         onRouteSelect={handleRouteSelect}
+        loading={loading} // Pasar el estado de carga al Sidebar
       />
       <Map
         setOrigin={location => {
