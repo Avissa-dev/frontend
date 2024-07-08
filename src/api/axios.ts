@@ -6,7 +6,7 @@ const getRoute = async (
   origin: [number, number],
   destination: [number, number]
 ) => {
-  const url = 'http://192.168.216.128:5000/home'
+  const url = 'http://127.0.0.1:5000/home'
   const params = {
     point_1: `${origin[1]} ${origin[0]}`, // Latitude Longitude
     point_2: `${destination[1]} ${destination[0]}` // Latitude Longitude
