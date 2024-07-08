@@ -5,6 +5,7 @@ import { ResultCard, Properties } from './ResultCard';
 import { RefObject, useState, useEffect } from 'react';
 import { PiBroomBold } from 'react-icons/pi';
 import { PulseLoader } from 'react-spinners'; // Importar el spinner
+import logo from '../assets/logo.png';
 
 interface SidebarProps {
   setFocusedInput: (input: 'origin' | 'destination') => void;
@@ -44,6 +45,7 @@ export const Sidebar = ({
         <h1 className="font-montserrat font-black text-2xl text-center mt-4">
           Ubícate con Avissa
         </h1>
+        <img src={logo} />
         <h3 className="font-montserrat font-bold text-sm mt-5 mb-1 tracking-widest">
           ORIGEN
         </h3>
