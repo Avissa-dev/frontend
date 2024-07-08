@@ -16,8 +16,8 @@ Para el cálculo de ruta se utiliza algoritmos de planificación que devuelvan u
 
 Para poder ejecutar el frontend se necesita:
 
-- Node.js v20.11.1 o superior
-- NPM v10.2.4 o superior
+- Node.js v20.11.1
+- NPM v10.2.4
 
 ## Ejecución
 
@@ -39,6 +39,14 @@ Para poder ejecutar el frontend se necesita:
 ```
 5. Acceder desde el navegador a [localhost:5173](http://localhost:5173)
 
+## Documentación
+
+Puede consultar documentación más detallada en la carpeta [documents](https://github.com/Avissa-dev/frontend/tree/main/documents), que incluyen:
+
+- Manual de usuario
+- Manual técnico
+- Análisis de licencia
+
 ## Descargas
 
 Puede descargar la última versión del software desde las [releases](https://github.com/Avissa-dev/frontend/releases) de este repositorio.
@@ -51,9 +59,9 @@ Si desea informar un problema, puede enviarlo al [issue tracker](https://github.
 
 ¡Las contribuciones son bienvenidas! Hay varias formas de participar en este proyecto, que incluyen:
 
-- Corrección de errores.
-- Pruebas beta.
-- Enhancement.
+- Corrección de errores
+- Pruebas beta
+- Enhancement
 
 Para mayor información sobre cómo contribuir, favor contactar a [00179320@uca.edu.sv](mailto:00179320@uca.edu.sv) o [00063820@uca.edu.sv](mailto:00063820@uca.edu.sv).
 
