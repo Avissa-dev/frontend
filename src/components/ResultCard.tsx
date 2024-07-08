@@ -67,28 +67,24 @@ export const ResultCard = ({ properties, onRouteSelect, isSelected }: ResultCard
   switch (bus_number) {
     case 1:
       return (
-        <div className={`flex flex-wrap items-center w-full p-4 border-t-2 border-gray-400 ${containerClass}`}>
+        <div className={`flex flex-wrap justify-center items-center w-full p-4 border-t-2 border-gray-400 ${containerClass}`}  onClick={handleSetRoute}>
           <div className="flex flex-wrap gap-4 w-4/5">
-            <Tag Icon={LiaWalkingSolid} Color='bg-[#4361EE]' />
+            <Tag Icon={LiaWalkingSolid} Color='bg-[#000000]' />
             {renderTag(route, route_type === 'POR AUTOBUS' ? FaBusAlt : IoMdBus, 'bg-[#D51E71] flex-grow', route_class === 'EXCLUSIVO' ? FaSnowflake : undefined)}
-            <Tag Icon={LiaWalkingSolid} Color='bg-[#4361EE]' />
+            <Tag Icon={LiaWalkingSolid} Color='bg-[#000000]' />
           </div>
-          <button className="flex items-center justify-center ml-auto w-1/5" onClick={handleSetRoute}>
-            <FaArrowAltCircleRight className="text-black text-2xl" />
-          </button>
+         
         </div>
       );
     case 2:
       return (
-        <div className={`flex justify-center items-center w-full py-4 border-t-2 border-gray-400 ${containerClass}`}>
+        <div className={`flex justify-center items-center w-full py-4 px-1 border-t-2 border-gray-400 ${containerClass}`} onClick={handleSetRoute} >
           <div className="flex flex-wrap gap-1 w-full">
             {renderTag(route_1, route_1_type === 'POR AUTOBUS' ? FaBusAlt : IoMdBus, 'bg-[#D51E71] min-w-[35%] fit', route_1_class === 'EXCLUSIVO' ? FaSnowflake : undefined)}
-            <Tag Icon={LiaWalkingSolid} Color='bg-[#4361EE] w-[15%]' />
+            <Tag Icon={LiaWalkingSolid} Color='bg-[#000000] w-[15%]' />
             {renderTag(route_2, route_2_type === 'POR AUTOBUS' ? FaBusAlt : IoMdBus, 'bg-[#7209B7] min-w-[35%] flex-grow', route_2_class === 'EXCLUSIVO' ? FaSnowflake : undefined)}
           </div>
-          <button className="flex items-center justify-center ml-auto w-1/5" onClick={handleSetRoute}>
-            <FaArrowAltCircleRight className="text-black text-2xl" />
-          </button>
+          
         </div>
       );
     case 3:
