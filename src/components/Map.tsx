@@ -3,6 +3,8 @@ import { MapContainer, Marker, TileLayer, GeoJSON, useMapEvents } from 'react-le
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Feature, Geometry, LineString } from 'geojson';
+import charmander from '../assets/charmander.png';
+import { LocateButton } from './LocateButton';
 
 interface MapProps {
   setOrigin: (location: [number, number]) => void;
@@ -21,8 +23,8 @@ export const Map = ({ setOrigin, origin, destination, onMapDoubleClick, selected
   }, [selectedRoutes]);
 
   const defaultIcon = new L.Icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png',
-    iconSize: [25, 41],
+    iconUrl: charmander,
+    iconSize: [40, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     shadowUrl: 'https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png',
@@ -47,6 +49,7 @@ export const Map = ({ setOrigin, origin, destination, onMapDoubleClick, selected
         subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
       />
       <MapDoubleClickHandler />
+      <LocateButton setOrigin={setOrigin} />
       {origin && <Marker position={origin} icon={defaultIcon} />}
       {destination && <Marker position={destination} icon={defaultIcon} />}
       {selectedRoutes.map((route, index) => (
