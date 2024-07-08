@@ -9,7 +9,7 @@ import { Properties, RouteData } from './components/ResultCard'
 import { Feature, Geometry, LineString } from 'geojson'
 import { ClipLoader } from 'react-spinners' // Importar el spinner
 
-const colors = ['#e580ff', '#000000', '#FFFFFF', '#F033FF', '#FF33F0']; // Colores alternativos para las rutas
+const colors = ['#F72585', '#7209B7', '#4361EE', '#F033FF', '#FF33F0']; // Colores alternativos para las rutas
 
 function App() {
   const [origin, setOrigin] = useState<[number, number] | null>(null)
