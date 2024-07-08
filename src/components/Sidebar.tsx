@@ -40,12 +40,12 @@ export const Sidebar = ({
   };
 
   return (
-    <div className="w-2/6 h-screen p-1 flex flex-col overflow-y-auto">
+    <div className="w-2/6 h-screen p-1 flex flex-col  overflow-y-auto">
       <div className='px-3'>
         <h1 className="font-montserrat font-black text-2xl text-center mt-4">
           Ubícate con Avissa
         </h1>
-        <img src={logo} /> {/* Logo de la aplicación */}
+        <img src={logo} className='h-[150px] m-auto'/> {/* Logo de la aplicación */}
         <h3 className="font-montserrat font-bold text-sm mt-5 mb-1 tracking-widest">
           ORIGEN
         </h3>
@@ -65,7 +65,7 @@ export const Sidebar = ({
           onFocus={() => setFocusedInput('destination')} // Establecer el input enfocado en destino
         />
         <div className="self-center justify-center mt-6 flex flex-row gap-2">
-          <Button onClick={onGetRoute} text='Calcular Ruta' color="bg-[#4361EE]" /> {/* Botón para calcular la ruta */}
+          <Button onClick={onGetRoute} text='Calcular Ruta' color="bg-[#4361EE]" />
           {data.length > 0 && (
             <Button onClick={onClean} text={<PiBroomBold />} color="bg-[#D51E43] text-xl font-bold" /> 
           )}

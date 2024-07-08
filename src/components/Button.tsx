@@ -15,7 +15,7 @@ export const Button = (props: ButtonProps) => {
       className={`${props.color} text-white font-bold text-sm py-2 px-4 w-fit rounded-lg`}
       // Agrega clases para el estilo del botón, incluyendo el color, texto blanco, negrita, tamaño de texto, padding, ancho y bordes redondeados
     >
-      {props.text} // Renderiza el texto o contenido del botón
+      {props.text} 
     </button>
   )
 }
